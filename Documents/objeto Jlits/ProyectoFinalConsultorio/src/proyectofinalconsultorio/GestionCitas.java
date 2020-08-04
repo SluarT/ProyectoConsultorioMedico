@@ -26,7 +26,7 @@ public class GestionCitas extends javax.swing.JFrame {
             System.out.println("Conexión exitosa");
             
             //Cargar tablas
-            this.conMySql.cargarTabla(tblCitas, "select * from citas");
+            this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: " + ex.getMessage());
         } catch (Exception ex) {
@@ -250,13 +250,12 @@ public class GestionCitas extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     // Instrucción SQL
-        String sql = "INSERT INTO citas (CitId, CitMedId, CitConId, CitPacId, CitFecha, CitHora ) "
+        String sql = "INSERT INTO tblCitas ( CitMedId, CitConId, CitPacId, CitFecha, CitHora ) "
                 + "VALUES('" + txtIdMedico.getText().trim() + "',"
                 + "'" + txtIdConsultorio.getText().trim() + "',"
                 + "'" + txtIdPaciente.getText().trim() + "',"
                 + "'" + txtFecha.getText().trim() + "',"
                 + "'" + txtHora.getText().trim() + "',"
-                + "'" + txtId.getText().trim() + "',"
                 + ")";
 
         System.out.println("" + sql);
@@ -281,19 +280,9 @@ public class GestionCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-   String sql = "SELECT * FROM citas WHERE CitId=" + txtId.getText();
+   String sql = "SELECT * FROM tblCitas WHERE CitId=" + txtId.getText();
 
-        /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
-                     "'"+txtTipoIdentificacion.getText().trim()+"',"+
-                     "'"+txtNombres.getText().trim()+"',"+
-                     "'"+txtApellidos.getText().trim()+"',"+
-                     "'"+txtSexo.getText().trim()+"',"+
-                     "'"+txtFechaNacimiento.getText().trim()+"',"+
-                     "'"+txtDireccion.getText().trim()+"',"+
-                     "'"+txtTelefono.getText().trim()+"',"+
-                     "'"+txtEmail.getText().trim()+"'"+
-                      ")";   */
-        System.out.println("" + sql);
+             System.out.println("" + sql);
         try {
 
             ResultSet fila = this.conMySql.cargarResulset(sql);
@@ -333,13 +322,13 @@ public class GestionCitas extends javax.swing.JFrame {
         // 0=yes, 1=no, 2=cancel
         //  System.out.println(input);
 
-        String sql = "UPDATE  citas SET ";
-        sql += "CitId='" + txtId.getText().trim() + "',";
+        String sql = "UPDATE  tblCitas SET ";
+        //sql += "CitId='" + txtId.getText().trim() + "',";
         sql += "CitMedId='" + txtIdMedico.getText().trim() + "',";
         sql += "CitConId='" + txtIdConsultorio.getText().trim() + "',";
         sql += "CitPacId='" + txtIdPaciente.getText().trim() + "',";
         sql += "CitFecha='" + txtFecha.getText().trim() + "',";
-        sql += "CitHora='" + txtHora.getText().trim() + "',";
+        sql += "CitHora='" + txtHora.getText().trim() +  "' WHERE CitId='" + txtId.getText().trim() + "'";
  
 
         System.out.println("" + sql);
@@ -377,7 +366,7 @@ public class GestionCitas extends javax.swing.JFrame {
         // 0=yes, 1=no, 2=cancel
         //  System.out.println(input);
 
-        String sql = "DELETE FROM  citas WHERE CitId='" + txtId.getText().trim() + "'";
+        String sql = "DELETE FROM  tblCitas WHERE CitId='" + txtId.getText().trim() + "'";
  
         System.out.println("" + sql);
 

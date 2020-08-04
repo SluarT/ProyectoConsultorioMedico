@@ -107,7 +107,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                     .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,7 +120,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -180,6 +180,11 @@ public class GestionUsuarios extends javax.swing.JFrame {
         });
 
         jButton5.setText("Cerrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -244,7 +249,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -261,7 +266,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,8 +278,9 @@ public class GestionUsuarios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
       // Instrucción SQL
-        String sql = "INSERT INTO usuarios (UsuId, UsuNombreUsuario, UsuContraseña, UsuNombres, UsuApellidos, UsuDireccion, UsuTelefono) "
-                + "VALUES('" + txtId.getText().trim() + "',"
+        String sql = "INSERT INTO usuarios ( UsuNombreUsuario, UsuContraseña, UsuNombres, UsuApellidos, UsuDireccion, UsuTelefono) "
+              
+                + "VALUES(" 
                 + "'" + txtNombreUsuario.getText().trim() + "',"
                 + "'" + txtContraseña.getText().trim() + "',"
                 + "'" + txtNombres.getText().trim() + "',"
@@ -316,14 +322,13 @@ public class GestionUsuarios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "UPDATE  usuarios SET ";
-        sql += "UsuID='" + txtId.getText().trim() + "',";
+       
         sql += "UsuNombreUsuario='" + txtNombreUsuario.getText().trim() + "',";
         sql += "UsuContraseña='" + txtContraseña.getText().trim() + "',";
         sql += "UsuNombres='" + txtNombres.getText().trim() + "',";
         sql += "UsuApellidos='" + txtApellidos.getText().trim() + "',";       
         sql += "UsuDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "UsuTelefono='" + txtTelefono.getText().trim() + "',";       
-        sql += " WHERE UsuContraseña='" + txtId.getText().trim() + "'";
+        sql += "UsuTelefono='" + txtTelefono.getText().trim() + "' WHERE UsuId='" + txtId.getText().trim() + "'";
 
         System.out.println("" + sql);
 
@@ -351,17 +356,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
        String sql = "SELECT * FROM Usuarios WHERE UsuId=" + txtId.getText();
-
-        /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
-                     "'"+txtTipoIdentificacion.getText().trim()+"',"+
-                     "'"+txtNombres.getText().trim()+"',"+
-                     "'"+txtApellidos.getText().trim()+"',"+
-                     "'"+txtSexo.getText().trim()+"',"+
-                     "'"+txtFechaNacimiento.getText().trim()+"',"+
-                     "'"+txtDireccion.getText().trim()+"',"+
-                     "'"+txtTelefono.getText().trim()+"',"+
-                     "'"+txtEmail.getText().trim()+"'"+
-                      ")";   */
+   
         System.out.println("" + sql);
         try {
 
@@ -394,7 +389,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       // TODO add your handling code here:
+    
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
             return;
@@ -405,15 +400,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  usuarios WHERE UsuId='" + txtId.getText().trim() + "'";
-        /* sql += "PacTipoidentificacion='" + txtTipoIdentificacion.getText().trim() + "',";
-        sql += "PacNombres='" + txtNombres.getText().trim() + "',";
-        sql += "PacApellidos='" + txtApellidos.getText().trim() + "',";
-        sql += "PacSexo='" + txtSexo.getText().trim() + "',";
-        sql += "PacFechaNacimiento='" + txtFechaNacimiento.getText().trim() + "',";
-        sql += "PacDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "PacTelefono='" + txtTelefono.getText().trim() + "',";
-        sql += "PacCorreo='" + txtEmail.getText().trim() + "'";
-        sql += " WHERE PacId='" + txtIdentificacion.getText().trim() + "'"; */
+
 
         System.out.println("" + sql);
 
@@ -451,6 +438,10 @@ public class GestionUsuarios extends javax.swing.JFrame {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       System.exit (0);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

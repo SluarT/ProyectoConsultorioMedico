@@ -197,6 +197,11 @@ public class GestionConsultorios extends javax.swing.JFrame {
 
         btnCerrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -289,8 +294,9 @@ public class GestionConsultorios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Instrucción SQL
-        String sql = "INSERT INTO consultorios (ConId, ConNombre, ConDireccion, ConCiudad, ConDepartamento, ConTelefono1, ConTelefono2, ConCorreo) "
-                + "VALUES('" + txtId.getText().trim() + "',"
+        String sql = "INSERT INTO consultorios (ConNombre, ConDireccion, ConCiudad, ConDepartamento, ConTelefono1, ConTelefono2, ConCorreo) "
+            
+                + "VALUES("
                 + "'" + txtNombre.getText().trim() + "',"
                 + "'" + txtDireccion.getText().trim() + "',"
                 + "'" + txtCiudad.getText().trim() + "',"
@@ -331,14 +337,16 @@ public class GestionConsultorios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "UPDATE  consultorios SET ";
-       // sql += "ConId='" + txtId.getText().trim() + "',";
+        
+     
+      //  sql += "ConId='" + txtId.getText().trim() + "',"; //Esto no se puede hacer
         sql += "ConNombre='" + txtNombre.getText().trim() + "',";
         sql += "ConDireccion='" + txtDireccion.getText().trim() + "',";
         sql += "ConCiudad='" + txtCiudad.getText().trim() + "',";
         sql += "ConDepartamento='" + txtDepartamento.getText().trim() + "',";
         sql += "ConTelefono1='" + txtTelefono1.getText().trim() + "',";
         sql += "ConTelefono2='" + txtTelefono2.getText().trim() + "',";
-        sql += "ConCorreo='" + txtEmail.getText().trim() + "'";
+        sql += "ConCorreo='" + txtEmail.getText().trim() + "' WHERE ConId='" + txtId.getText().trim() + "'"; //Siempre debe ir el Where
 
         System.out.println("" + sql);
 
@@ -368,17 +376,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String sql = "SELECT * FROM consultorios WHERE ConId=" + txtId.getText();
 
-        /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
-                     "'"+txtTipoIdentificacion.getText().trim()+"',"+
-                     "'"+txtNombres.getText().trim()+"',"+
-                     "'"+txtApellidos.getText().trim()+"',"+
-                     "'"+txtSexo.getText().trim()+"',"+
-                     "'"+txtFechaNacimiento.getText().trim()+"',"+
-                     "'"+txtDireccion.getText().trim()+"',"+
-                     "'"+txtTelefono.getText().trim()+"',"+
-                     "'"+txtEmail.getText().trim()+"'"+
-                      ")";   */
-        System.out.println("" + sql);
+              System.out.println("" + sql);
         try {
 
             ResultSet fila = this.conMySql.cargarResulset(sql);
@@ -419,15 +417,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  consultorios WHERE ConId='" + txtId.getText().trim() + "'";
-        /* sql += "PacTipoidentificacion='" + txtTipoIdentificacion.getText().trim() + "',";
-        sql += "PacNombres='" + txtNombres.getText().trim() + "',";
-        sql += "PacApellidos='" + txtApellidos.getText().trim() + "',";
-        sql += "PacSexo='" + txtSexo.getText().trim() + "',";
-        sql += "PacFechaNacimiento='" + txtFechaNacimiento.getText().trim() + "',";
-        sql += "PacDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "PacTelefono='" + txtTelefono.getText().trim() + "',";
-        sql += "PacCorreo='" + txtEmail.getText().trim() + "'";
-        sql += " WHERE PacId='" + txtIdentificacion.getText().trim() + "'"; */
+
 
         System.out.println("" + sql);
 
@@ -464,6 +454,10 @@ public class GestionConsultorios extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+             System.exit (0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     /**
      * @param args the command line arguments

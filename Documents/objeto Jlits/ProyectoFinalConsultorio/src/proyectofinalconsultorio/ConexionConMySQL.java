@@ -49,7 +49,7 @@ public class ConexionConMySQL {
         Connection objConexion = this.conectar();
         int respuesta = 0;
         Statement stmt = (Statement)objConexion.createStatement();
-        respuesta = stmt.executeUpdate(sql);
+        respuesta = stmt.executeUpdate(sql); // esta linea es la que llama cuando sale el error al querer guardar en la bd cuando son datos auto incrementables
         return respuesta;
     }
 
