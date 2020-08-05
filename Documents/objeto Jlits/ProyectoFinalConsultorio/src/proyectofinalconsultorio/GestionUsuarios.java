@@ -1,4 +1,3 @@
-
 package proyectofinalconsultorio;
 
 import java.awt.HeadlessException;
@@ -9,24 +8,31 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
-
 public class GestionUsuarios extends javax.swing.JFrame {
 
-   ConexionConMySQL conMySql = new ConexionConMySQL();
+    ConexionConMySQL conMySql = new ConexionConMySQL();
     PreparedStatement ps;
     ResultSet rs;
     Statement stmt;
-    
+
     public GestionUsuarios() {
         initComponents();
-       
+
+        btnNuevo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnGuardar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+        desabilitar();
+
         try {
             //Instancia de la clase ConexionConMySQL
             ConexionConMySQL conMySQL = new ConexionConMySQL();
             //Invocación del método conexión para conectar con MySQL
             conMySQL.conectar();
             System.out.println("Conexión exitosa");
-            
+
             //Cargar tablas
             this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios");
         } catch (ClassNotFoundException ex) {
@@ -34,7 +40,39 @@ public class GestionUsuarios extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-         
+
+    }
+
+    public void desabilitar() {
+
+        txtContraseña.setEnabled(false);
+        txtNombreUsuario.setEnabled(false);
+        txtNombres.setEnabled(false);
+        txtApellidos.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtTelefono.setEnabled(false);
+
+    }
+
+    public void habilitar() {
+
+        txtContraseña.setEnabled(true);
+        txtNombreUsuario.setEnabled(true);
+        txtNombres.setEnabled(true);
+        txtApellidos.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+    }
+
+    public void limpiar() {
+
+        txtId.setText("");
+        txtContraseña.setText("");
+        txtNombreUsuario.setText("");
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
     }
 
     /**
@@ -66,7 +104,8 @@ public class GestionUsuarios extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
@@ -179,10 +218,17 @@ public class GestionUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Cerrar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -190,8 +236,10 @@ public class GestionUsuarios extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(btnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardar)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditar)
@@ -200,8 +248,8 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(btnCerrar)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +260,8 @@ public class GestionUsuarios extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar)
                     .addComponent(btnEliminar)
-                    .addComponent(jButton5))
+                    .addComponent(btnCerrar)
+                    .addComponent(btnNuevo))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -252,12 +301,12 @@ public class GestionUsuarios extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(jLabel1)))
                 .addContainerGap(54, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,44 +326,77 @@ public class GestionUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      // Instrucción SQL
-        String sql = "INSERT INTO usuarios ( UsuNombreUsuario, UsuContraseña, UsuNombres, UsuApellidos, UsuDireccion, UsuTelefono) "
-              
-                + "VALUES(" 
-                + "'" + txtNombreUsuario.getText().trim() + "',"
-                + "'" + txtContraseña.getText().trim() + "',"
-                + "'" + txtNombres.getText().trim() + "',"
-                + "'" + txtApellidos.getText().trim() + "',"               
-                + "'" + txtDireccion.getText().trim() + "',"
-                + "'" + txtTelefono.getText().trim() + "',"
-                + ")";
+        if (txtContraseña.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA CONTRASEÑA", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtContraseña.requestFocus();
+        } else if (txtNombreUsuario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR El NOMBRE DE USUARIO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtNombreUsuario.requestFocus();
+        } else if (txtNombres.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL NOMBRE ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtNombres.requestFocus();
+        } else if (txtApellidos.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL APELLIDO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtApellidos.requestFocus();
+        } else if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA DIRECCION ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+        } else if (txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO  ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTelefono.requestFocus();
 
-        System.out.println("" + sql);
+        } else {
+// Instrucción SQL
 
-        try {
-            //La función ejecutarSql sirve para ejecutar
-            //instrucciones INSERT, UPDATE Y DELETE
-            //Retorna un valor entero (int) que representa
-            //el número de filas ejecutadas o afectadas
-            if (conMySql.ejecutarSql(sql) == 1) {
-                JOptionPane.showMessageDialog(this, "Registro insertado ");
-            } else {
-                JOptionPane.showMessageDialog(this, "Registro no insertado ");
+            String sql = "INSERT INTO usuarios ( UsuNombreUsuario, UsuContraseña, UsuNombres, UsuApellidos, UsuDireccion, UsuTelefono) "
+                    + "VALUES("
+                    + "'" + txtNombreUsuario.getText().trim() + "',"
+                    + "'" + txtContraseña.getText().trim() + "',"
+                    + "'" + txtNombres.getText().trim() + "',"
+                    + "'" + txtApellidos.getText().trim() + "',"
+                    + "'" + txtDireccion.getText().trim() + "',"
+                    + "'" + Integer.parseInt(txtTelefono.getText().trim()) + "'" // casteo nos ayuda a que solo entren numero
+                    + ")";
+
+            System.out.println("" + sql);
+
+            try {
+                //La función ejecutarSql sirve para ejecutar
+                //instrucciones INSERT, UPDATE Y DELETE
+                //Retorna un valor entero (int) que representa
+                //el número de filas ejecutadas o afectadas
+                if (conMySql.ejecutarSql(sql) == 1) {
+                    JOptionPane.showMessageDialog(this, "Registro insertado ");
+
+                    limpiar();
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Registro no insertado ");
+                }
+            } catch (SQLException | HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-       
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-    if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
+        if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtId.setText("");
+            txtId.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
+
         }
 
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Esta segugo?");
@@ -322,13 +404,13 @@ public class GestionUsuarios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "UPDATE  usuarios SET ";
-       
+
         sql += "UsuNombreUsuario='" + txtNombreUsuario.getText().trim() + "',";
         sql += "UsuContraseña='" + txtContraseña.getText().trim() + "',";
         sql += "UsuNombres='" + txtNombres.getText().trim() + "',";
-        sql += "UsuApellidos='" + txtApellidos.getText().trim() + "',";       
+        sql += "UsuApellidos='" + txtApellidos.getText().trim() + "',";
         sql += "UsuDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "UsuTelefono='" + txtTelefono.getText().trim() + "' WHERE UsuId='" + txtId.getText().trim() + "'";
+        sql += "UsuTelefono='" + Integer.parseInt(txtTelefono.getText().trim()) + "' WHERE UsuId='" + txtId.getText().trim() + "'";
 
         System.out.println("" + sql);
 
@@ -342,6 +424,14 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
                     this.conMySql.desconectar();
+                    limpiar();
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
                 }
@@ -355,8 +445,14 @@ public class GestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       String sql = "SELECT * FROM Usuarios WHERE UsuId=" + txtId.getText();
-   
+        txtId.setEnabled(false);
+        habilitar();
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnCerrar.setEnabled(true);
+
+        String sql = "SELECT * FROM Usuarios WHERE UsuId=" + txtId.getText();
+
         System.out.println("" + sql);
         try {
 
@@ -367,16 +463,21 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 txtNombreUsuario.setText(fila.getString("UsuNombreUsuario"));
                 txtContraseña.setText(fila.getString("UsuContraseña"));
                 txtNombres.setText(fila.getString("UsuNombres"));
-                txtApellidos.setText(fila.getString("UsuApellidos"));                              
+                txtApellidos.setText(fila.getString("UsuApellidos"));
                 txtDireccion.setText(fila.getString("usuDireccion"));
                 txtTelefono.setText(fila.getString("UsuTelefono"));
-                
-              
 
                 fila.close();
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                txtId.setText("");
+                txtId.setEnabled(true);
+                desabilitar();
+                btnEditar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnNuevo.setEnabled(true);
+                btnBuscar.setEnabled(true);
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -385,13 +486,18 @@ public class GestionUsuarios extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    
+
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtId.setText("");
+            txtId.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -400,7 +506,6 @@ public class GestionUsuarios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  usuarios WHERE UsuId='" + txtId.getText().trim() + "'";
-
 
         System.out.println("" + sql);
 
@@ -414,18 +519,16 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
-                    txtId.setText("");
-                    txtNombreUsuario.setText("");
-                    txtContraseña.setText("");
-                    txtNombres.setText("");
-                    txtApellidos.setText("");                               
-                    txtDireccion.setText("");
-                    txtTelefono.setText("");
-                    
-                    
-
-          
+                    limpiar();
                     this.conMySql.desconectar();
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no eliminado ");
@@ -439,9 +542,21 @@ public class GestionUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       System.exit (0);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    limpiar();
+    habilitar();
+    txtId.setEnabled(false);
+    btnBuscar.setEnabled(false);
+    btnEditar.setEnabled(false);
+    btnGuardar.setEnabled(true);
+    btnEliminar.setEnabled(false);
+    btnCerrar.setEnabled(true);
+
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,10 +595,11 @@ public class GestionUsuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

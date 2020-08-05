@@ -17,6 +17,13 @@ public class GestionPacientes extends javax.swing.JFrame {
 
     public GestionPacientes() {
         initComponents();
+        btnNuevo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnGuardar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+        desabilitar();
 
         try {
             //Instancia de la clase ConexionConMySQL
@@ -24,7 +31,7 @@ public class GestionPacientes extends javax.swing.JFrame {
             //Invocación del método conexión para conectar con MySQL
             conMySQL.conectar();
             System.out.println("Conexión exitosa");
-            
+
             //Cargar tablas
             this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
         } catch (ClassNotFoundException ex) {
@@ -32,6 +39,40 @@ public class GestionPacientes extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
+    }
+
+    public void habilitar() {
+
+        txtTipoIdentificacion.setEnabled(true);
+        txtNombres.setEnabled(true);
+        txtApellidos.setEnabled(true);
+        txtFechaNacimiento.setEnabled(true);
+        txtSexo.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+        txtEmail.setEnabled(true);
+    }
+
+    public void desabilitar() {
+        txtTipoIdentificacion.setEnabled(false);
+        txtNombres.setEnabled(false);
+        txtApellidos.setEnabled(false);
+        txtFechaNacimiento.setEnabled(false);
+        txtSexo.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        txtEmail.setEnabled(false);
+    }
+
+    public void limpiar() {
+        txtTipoIdentificacion.setText("");
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtFechaNacimiento.setText("");
+        txtSexo.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
     }
 
     /**
@@ -69,6 +110,7 @@ public class GestionPacientes extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPacientes = new javax.swing.JTable();
@@ -207,12 +249,21 @@ public class GestionPacientes extends javax.swing.JFrame {
             }
         });
 
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(btnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditar)
@@ -233,7 +284,8 @@ public class GestionPacientes extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnCerrar))
+                    .addComponent(btnCerrar)
+                    .addComponent(btnNuevo))
                 .addGap(23, 23, 23))
         );
 
@@ -266,19 +318,22 @@ public class GestionPacientes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(188, 188, 188)
-                            .addComponent(jLabel11))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(69, 69, 69)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 37, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -299,42 +354,82 @@ public class GestionPacientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // Instrucción SQL
-        String sql = "INSERT INTO pacientes (PacId, PacTipoidentificacion, PacNombres, PacApellidos, PacSexo, PacFechaNacimiento,PacDireccion, PacTelefono, PacCorreo) "
-                + "VALUES('" + txtIdentificacion.getText().trim() + "',"
-                + "'" + txtTipoIdentificacion.getText().trim() + "',"
-                + "'" + txtNombres.getText().trim() + "',"
-                + "'" + txtApellidos.getText().trim() + "',"
-                + "'" + txtSexo.getText().trim() + "',"
-                + "'" + txtFechaNacimiento.getText().trim() + "',"
-                + "'" + txtDireccion.getText().trim() + "',"
-                + "'" + txtTelefono.getText().trim() + "',"
-                + "'" + txtEmail.getText().trim() + "'"
-                + ")";
+        if (txtIdentificacion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA IDENTIFICACIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtIdentificacion.requestFocus();
+        } else if (txtTipoIdentificacion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TIPO DE IDENTIFICACIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTipoIdentificacion.requestFocus();
+        } else if (txtNombres.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR El NOMBRE ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtNombres.requestFocus();
+        } else if (txtApellidos.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL APELLIDO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtApellidos.requestFocus();
+        } else if (txtFechaNacimiento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA FECHA DE NACIMIENTO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtFechaNacimiento.requestFocus();
+        } else if (txtSexo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL SEXO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtSexo.requestFocus();
+        } else if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA DIRECCION ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+        } else if (txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTelefono.requestFocus();
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL CORREO ELECTRONICO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+        } else {
+            // Instrucción SQL
+            String sql = "INSERT INTO pacientes (PacId, PacTipoidentificacion, PacNombres, PacApellidos, PacSexo, PacFechaNacimiento,PacDireccion, PacTelefono, PacCorreo) "
+                    + "VALUES('" + Integer.parseInt(txtIdentificacion.getText().trim()) + "',"
+                    + "'" + txtTipoIdentificacion.getText().trim() + "',"
+                    + "'" + txtNombres.getText().trim() + "',"
+                    + "'" + txtApellidos.getText().trim() + "',"
+                    + "'" + txtSexo.getText().trim() + "',"
+                    + "'" + txtFechaNacimiento.getText().trim() + "',"
+                    + "'" + txtDireccion.getText().trim() + "',"
+                    + "'" + Integer.parseInt(txtTelefono.getText().trim()) + "',"
+                    + "'" + txtEmail.getText().trim() + "'"
+                    + ")";
 
-        System.out.println("" + sql);
+            System.out.println("" + sql);
 
-        try {
-            //La función ejecutarSql sirve para ejecutar
-            //instrucciones INSERT, UPDATE Y DELETE
-            //Retorna un valor entero (int) que representa
-            //el número de filas ejecutadas o afectadas
-            if (conMySql.ejecutarSql(sql) == 1) {
-                JOptionPane.showMessageDialog(this, "Registro insertado ");
-            } else {
-                JOptionPane.showMessageDialog(this, "Registro no insertado ");
+            try {
+                //La función ejecutarSql sirve para ejecutar
+                //instrucciones INSERT, UPDATE Y DELETE
+                //Retorna un valor entero (int) que representa
+                //el número de filas ejecutadas o afectadas
+                if (conMySql.ejecutarSql(sql) == 1) {
+                    JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    limpiar();
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Registro no insertado ");
+                }
+            } catch (SQLException | HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtIdentificacion.setText("");
+            txtIdentificacion.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -349,7 +444,7 @@ public class GestionPacientes extends javax.swing.JFrame {
         sql += "PacSexo='" + txtSexo.getText().trim() + "',";
         sql += "PacFechaNacimiento='" + txtFechaNacimiento.getText().trim() + "',";
         sql += "PacDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "PacTelefono='" + txtTelefono.getText().trim() + "',";
+        sql += "PacTelefono='" + Integer.parseInt(txtTelefono.getText().trim()) + "',";
         sql += "PacCorreo='" + txtEmail.getText().trim() + "'";
         sql += " WHERE PacId='" + txtIdentificacion.getText().trim() + "'";
 
@@ -364,6 +459,15 @@ public class GestionPacientes extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
+                    limpiar();
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
                     this.conMySql.desconectar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
@@ -378,7 +482,12 @@ public class GestionPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        txtIdentificacion.setEnabled(false);
+        habilitar();
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnCerrar.setEnabled(true);
+        
         String sql = "SELECT * FROM pacientes WHERE PacId=" + txtIdentificacion.getText();
 
         /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
@@ -411,6 +520,13 @@ public class GestionPacientes extends javax.swing.JFrame {
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                txtIdentificacion.setText("");
+                txtIdentificacion.setEnabled(true);
+                desabilitar();
+                btnEditar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnNuevo.setEnabled(true);
+                btnBuscar.setEnabled(true);
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -425,6 +541,11 @@ public class GestionPacientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtIdentificacion.setText("");
+            txtIdentificacion.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -455,7 +576,7 @@ public class GestionPacientes extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
-                    txtIdentificacion.setText("");
+                  /*  txtIdentificacion.setText("");
                     txtTipoIdentificacion.setText("");
                     txtNombres.setText("");
                     txtApellidos.setText("");
@@ -463,10 +584,21 @@ public class GestionPacientes extends javax.swing.JFrame {
                     txtFechaNacimiento.setText("");
                     txtDireccion.setText("");
                     txtEmail.setText("");
-                    txtTelefono.setText("");
+                    txtTelefono.setText("");*/
+                  limpiar(); // esto reemplaza el codigo de arriba
 
-          
                     this.conMySql.desconectar();
+                    
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
+
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no eliminado ");
@@ -481,8 +613,19 @@ public class GestionPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-       System.exit (0);
+        System.exit(0);
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+       limpiar();
+        habilitar();
+        txtIdentificacion.setEnabled(true);
+        btnBuscar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,6 +668,7 @@ public class GestionPacientes extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

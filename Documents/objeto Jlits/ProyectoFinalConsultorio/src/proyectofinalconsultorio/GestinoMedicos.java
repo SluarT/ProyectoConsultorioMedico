@@ -8,29 +8,32 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
-
 public class GestinoMedicos extends javax.swing.JFrame {
 
     ConexionConMySQL conMySql = new ConexionConMySQL();
     PreparedStatement ps;
     ResultSet rs;
     Statement stmt;
- 
-    
+
     public GestinoMedicos() {
-    
-         initComponents();
-        
-       try {
+
+        initComponents();
+
+        btnNuevo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnGuardar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+        desabilitar();
+
+        try {
             //Instancia de la clase ConexionConMySQL
             ConexionConMySQL conMySQL = new ConexionConMySQL();
             //Invocación del método conexión para conectar con MySQL
             conMySQL.conectar();
             System.out.println("Conexión exitosa");
-            
+
             //Cargar tablas
             this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
         } catch (ClassNotFoundException ex) {
@@ -38,9 +41,49 @@ public class GestinoMedicos extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-         
+
     }
-      
+
+    public void habilitar() {
+
+        txtTipoIdentificacion.setEnabled(true);
+        txtNombres.setEnabled(true);
+        txtApellidos.setEnabled(true);
+        txtFechaNacimiento.setEnabled(true);
+        txtTarjetaProfesional.setEnabled(true);
+        txtEspecialidad.setEnabled(true);
+        txtSexo.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+        txtEmail.setEnabled(true);
+    }
+
+    public void desabilitar() {
+        txtTipoIdentificacion.setEnabled(false);
+        txtNombres.setEnabled(false);
+        txtApellidos.setEnabled(false);
+        txtFechaNacimiento.setEnabled(false);
+        txtTarjetaProfesional.setEnabled(false);
+        txtEspecialidad.setEnabled(false);
+        txtSexo.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        txtEmail.setEnabled(false);
+    }
+
+    public void limpiar() {
+        txtTipoIdentificacion.setText("");
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtFechaNacimiento.setText("");
+        txtTarjetaProfesional.setText("");
+        txtEspecialidad.setText("");
+        txtSexo.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -73,6 +116,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMedicos = new javax.swing.JTable();
@@ -236,11 +280,20 @@ public class GestinoMedicos extends javax.swing.JFrame {
             }
         });
 
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(btnNuevo)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -251,7 +304,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 .addComponent(btnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +315,8 @@ public class GestinoMedicos extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnCerrar))
+                    .addComponent(btnCerrar)
+                    .addComponent(btnNuevo))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -303,11 +357,11 @@ public class GestinoMedicos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(222, 222, 222)
-                        .addComponent(jLabel12)))
+                        .addComponent(jLabel12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -328,46 +382,92 @@ public class GestinoMedicos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
- // Instrucción SQL
-        String sql = "INSERT INTO medicos (MedId, MedTipoIdentificacion, MedNombres, MedApellidos, MedFechaNacimiento, MedTarjetaProfesional, MedEspecialidad, MedSexo,MedDireccion, MedTelefono, MedCorreo) "
-                + "VALUES('" + txtIdentificacion.getText().trim() + "',"
-                + "'" + txtTipoIdentificacion.getText().trim() + "',"
-                + "'" + txtNombres.getText().trim() + "',"
-                + "'" + txtApellidos.getText().trim() + "',"
-                 + "'" + txtFechaNacimiento.getText().trim() + "',"
-                + "'" + txtTarjetaProfesional.getText().trim() + "',"
-                + "'" + txtEspecialidad.getText().trim() + "',"                 
-                + "'" + txtSexo.getText().trim() + "',"
-                + "'" + txtDireccion.getText().trim() + "',"
-                + "'" + txtTelefono.getText().trim() + "',"
-                + "'" + txtEmail.getText().trim() + "'"
-                + ")";
+        if (txtIdentificacion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA IDENTIFICACIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtIdentificacion.requestFocus();
+        } else if (txtTipoIdentificacion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TIPO DE IDENTIFICACIÓN", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTipoIdentificacion.requestFocus();
+        } else if (txtNombres.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR El NOMBRE ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtNombres.requestFocus();
+        } else if (txtApellidos.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL APELLIDO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtApellidos.requestFocus();
+        } else if (txtFechaNacimiento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA FECHA DE NACIMIENTO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtFechaNacimiento.requestFocus();
+        } else if (txtTarjetaProfesional.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA TARJETA PROFESIONAL ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTarjetaProfesional.requestFocus();
+        } else if (txtEspecialidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA ESPECIALIDAD ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtEspecialidad.requestFocus();
+        } else if (txtSexo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL SEXO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtSexo.requestFocus();
+        } else if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA DIRECCION ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+        } else if (txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTelefono.requestFocus();
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL CORREO ELECTRONICO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+        } else {
 
-        System.out.println("" + sql);
+// Instrucción SQL
+            String sql = "INSERT INTO medicos (MedId, MedTipoIdentificacion, MedNombres, MedApellidos, MedFechaNacimiento, MedTarjetaProfesional, MedEspecialidad, MedSexo,MedDireccion, MedTelefono, MedCorreo) "
+                    + "VALUES('" + Integer.parseInt(txtIdentificacion.getText().trim()) + "'," // se realiza parseo
+                    + "'" + txtTipoIdentificacion.getText().trim() + "',"
+                    + "'" + txtNombres.getText().trim() + "',"
+                    + "'" + txtApellidos.getText().trim() + "',"
+                    + "'" + txtFechaNacimiento.getText().trim() + "',"
+                    + "'" + txtTarjetaProfesional.getText().trim() + "',"
+                    + "'" + txtEspecialidad.getText().trim() + "',"
+                    + "'" + txtSexo.getText().trim() + "',"
+                    + "'" + txtDireccion.getText().trim() + "',"
+                    + "'" + Integer.parseInt(txtTelefono.getText().trim()) + "'," // se realiza parseo
+                    + "'" + txtEmail.getText().trim() + "'"
+                    + ")";
 
-        try {
-            //La función ejecutarSql sirve para ejecutar
-            //instrucciones INSERT, UPDATE Y DELETE
-            //Retorna un valor entero (int) que representa
-            //el número de filas ejecutadas o afectadas
-            if (conMySql.ejecutarSql(sql) == 1) {
-                JOptionPane.showMessageDialog(this, "Registro insertado ");
-            } else {
-                JOptionPane.showMessageDialog(this, "Registro no insertado ");
+            System.out.println("" + sql);
+
+            try {
+                //La función ejecutarSql sirve para ejecutar
+                //instrucciones INSERT, UPDATE Y DELETE
+                //Retorna un valor entero (int) que representa
+                //el número de filas ejecutadas o afectadas
+                if (conMySql.ejecutarSql(sql) == 1) {
+                    JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    limpiar();
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Registro no insertado ");
+                }
+            } catch (SQLException | HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-       
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-     if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
+        if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtIdentificacion.setText("");
+            txtIdentificacion.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -381,10 +481,10 @@ public class GestinoMedicos extends javax.swing.JFrame {
         sql += "MedApellidos='" + txtApellidos.getText().trim() + "',";
         sql += "MedFechaNacimiento='" + txtFechaNacimiento.getText().trim() + "',";
         sql += "MedTarjetaProfesional='" + txtTarjetaProfesional.getText().trim() + "',";
-        sql += "MedEspecialidad='" + txtEspecialidad.getText().trim() + "',";        
+        sql += "MedEspecialidad='" + txtEspecialidad.getText().trim() + "',";
         sql += "MedSexo='" + txtSexo.getText().trim() + "',";
         sql += "MedDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "MedTelefono='" + txtTelefono.getText().trim() + "',";
+        sql += "MedTelefono='" + Integer.parseInt(txtTelefono.getText().trim()) + "',";
         sql += "MedCorreo='" + txtEmail.getText().trim() + "'";
         sql += " WHERE MedId='" + txtIdentificacion.getText().trim() + "'";
 
@@ -399,6 +499,15 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
+                    limpiar();
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
                     this.conMySql.desconectar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
@@ -413,18 +522,13 @@ public class GestinoMedicos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        txtIdentificacion.setEnabled(false);
+        habilitar();
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnCerrar.setEnabled(true);
         String sql = "SELECT * FROM medicos WHERE MedId=" + txtIdentificacion.getText();
 
-        /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
-                     "'"+txtTipoIdentificacion.getText().trim()+"',"+
-                     "'"+txtNombres.getText().trim()+"',"+
-                     "'"+txtApellidos.getText().trim()+"',"+
-                     "'"+txtSexo.getText().trim()+"',"+
-                     "'"+txtFechaNacimiento.getText().trim()+"',"+
-                     "'"+txtDireccion.getText().trim()+"',"+
-                     "'"+txtTelefono.getText().trim()+"',"+
-                     "'"+txtEmail.getText().trim()+"'"+
-                      ")";   */
         System.out.println("" + sql);
         try {
 
@@ -438,16 +542,22 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 txtFechaNacimiento.setText(fila.getString("MedFechaNacimiento"));
                 txtTarjetaProfesional.setText(fila.getString("MedTarjetaProfesional"));
                 txtEspecialidad.setText(fila.getString("MedEspecialidad"));
-                txtSexo.setText(fila.getString("MedSexo"));               
+                txtSexo.setText(fila.getString("MedSexo"));
                 txtDireccion.setText(fila.getString("MedDireccion"));
                 txtTelefono.setText(fila.getString("MedTelefono"));
                 txtEmail.setText(fila.getString("MedCorreo"));
-              
 
                 fila.close();
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                txtIdentificacion.setText("");
+                txtIdentificacion.setEnabled(true);
+                desabilitar();
+                btnEditar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnNuevo.setEnabled(true);
+                btnBuscar.setEnabled(true);
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -456,13 +566,18 @@ public class GestinoMedicos extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-      // TODO add your handling code here:
+        // TODO add your handling code here:
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtIdentificacion.setText("");
+            txtIdentificacion.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -471,15 +586,6 @@ public class GestinoMedicos extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  medicos WHERE MedId='" + txtIdentificacion.getText().trim() + "'";
-        /* sql += "PacTipoidentificacion='" + txtTipoIdentificacion.getText().trim() + "',";
-        sql += "PacNombres='" + txtNombres.getText().trim() + "',";
-        sql += "PacApellidos='" + txtApellidos.getText().trim() + "',";
-        sql += "PacSexo='" + txtSexo.getText().trim() + "',";
-        sql += "PacFechaNacimiento='" + txtFechaNacimiento.getText().trim() + "',";
-        sql += "PacDireccion='" + txtDireccion.getText().trim() + "',";
-        sql += "PacTelefono='" + txtTelefono.getText().trim() + "',";
-        sql += "PacCorreo='" + txtEmail.getText().trim() + "'";
-        sql += " WHERE PacId='" + txtIdentificacion.getText().trim() + "'"; */
 
         System.out.println("" + sql);
 
@@ -493,21 +599,30 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
-                    txtIdentificacion.setText("");
+                    /* txtIdentificacion.setText("");
                     txtTipoIdentificacion.setText("");
                     txtNombres.setText("");
                     txtApellidos.setText("");
                     txtFechaNacimiento.setText("");
                     txtTarjetaProfesional.setText("");
                     txtEspecialidad.setText("");
-                    txtSexo.setText("");                    
+                    txtSexo.setText("");
                     txtDireccion.setText("");
                     txtTelefono.setText("");
-                    txtEmail.setText("");
-                    
+                    txtEmail.setText(""); */
+                    limpiar(); // esto reeempla el codigo de arriba 
 
-          
                     this.conMySql.desconectar();
+
+                    desabilitar();
+                    txtIdentificacion.setText("");
+                    txtIdentificacion.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no eliminado ");
@@ -519,14 +634,24 @@ public class GestinoMedicos extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-          System.exit (0);
+        System.exit(0);
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-  
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiar();
+        habilitar();
+        txtIdentificacion.setEnabled(true);
+        btnBuscar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -565,6 +690,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

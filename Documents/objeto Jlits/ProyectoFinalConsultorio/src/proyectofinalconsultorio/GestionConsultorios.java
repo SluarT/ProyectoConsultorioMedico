@@ -17,6 +17,13 @@ public class GestionConsultorios extends javax.swing.JFrame {
 
     public GestionConsultorios() {
         initComponents();
+        btnNuevo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnGuardar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
+        desabilitar();
         try {
             //Instancia de la clase ConexionConMySQL
             ConexionConMySQL conMySQL = new ConexionConMySQL();
@@ -31,6 +38,38 @@ public class GestionConsultorios extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
+    }
+
+    public void habilitar() {
+        
+        txtNombre.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtCiudad.setEnabled(true);
+        txtDepartamento.setEnabled(true);
+        txtTelefono1.setEnabled(true);
+        txtTelefono2.setEnabled(true);
+        txtEmail.setEnabled(true);
+    }
+
+    public void desabilitar() {
+        txtNombre.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtCiudad.setEnabled(false);
+        txtDepartamento.setEnabled(false);
+        txtTelefono1.setEnabled(false);
+        txtTelefono2.setEnabled(false);
+        txtEmail.setEnabled(false);
+    }
+
+    public void limpiar() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        txtCiudad.setText("");
+        txtDepartamento.setText("");
+        txtTelefono1.setText("");
+        txtTelefono2.setText("");
+        txtEmail.setText("");
     }
 
     /**
@@ -65,6 +104,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsultorios = new javax.swing.JTable();
@@ -203,34 +243,46 @@ public class GestionConsultorios extends javax.swing.JFrame {
             }
         });
 
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(btnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCerrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnCerrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnEditar)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnCerrar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -267,13 +319,15 @@ public class GestionConsultorios extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))))
+                .addContainerGap(82, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 16, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,51 +338,84 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // Instrucción SQL
-        String sql = "INSERT INTO consultorios (ConNombre, ConDireccion, ConCiudad, ConDepartamento, ConTelefono1, ConTelefono2, ConCorreo) "
-            
-                + "VALUES("
-                + "'" + txtNombre.getText().trim() + "',"
-                + "'" + txtDireccion.getText().trim() + "',"
-                + "'" + txtCiudad.getText().trim() + "',"
-                + "'" + txtDepartamento.getText().trim() + "',"
-                + "'" + txtTelefono1.getText().trim() + "',"
-                + "'" + txtTelefono2.getText().trim() + "',"
-                + "'" + txtEmail.getText().trim() + "'"
-                + ")";
+        if (txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL NOMBRE DEL CONSULTORIO", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+        } else if (txtDireccion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA DIRECCIÓN ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+        } else if (txtCiudad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR LA CIUDAD ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtCiudad.requestFocus();
+        } else if (txtDepartamento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL DEPARTAMENTO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtDepartamento.requestFocus();
+        } else if (txtTelefono1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO PRINCIPAL ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTelefono1.requestFocus();
+        } else if (txtTelefono2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL TELEFONO SECUNDARIO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtTelefono2.requestFocus();
+        } else if (txtEmail.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "FALTA INGRESAR EL CORREO ELECTRONICO ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+        } else {
 
-        System.out.println("" + sql);
+// Instrucción SQL
+            String sql = "INSERT INTO consultorios (ConNombre, ConDireccion, ConCiudad, ConDepartamento, ConTelefono1, ConTelefono2, ConCorreo) "
+                    + "VALUES("
+                    + "'" + txtNombre.getText().trim() + "',"
+                    + "'" + txtDireccion.getText().trim() + "',"
+                    + "'" + txtCiudad.getText().trim() + "',"
+                    + "'" + txtDepartamento.getText().trim() + "',"
+                    + "'" + Integer.parseInt(txtTelefono1.getText().trim()) + "'," // casteo nos ayuda a que solo entren numero
+                    + "'" + Integer.parseInt(txtTelefono2.getText().trim()) + "',"
+                    + "'" + txtEmail.getText().trim() + "'"
+                    + ")";
 
-        try {
-            //La función ejecutarSql sirve para ejecutar
-            //instrucciones INSERT, UPDATE Y DELETE
-            //Retorna un valor entero (int) que representa
-            //el número de filas ejecutadas o afectadas
-            if (conMySql.ejecutarSql(sql) == 1) {
-                JOptionPane.showMessageDialog(this, "Registro insertado ");
-            } else {
-                JOptionPane.showMessageDialog(this, "Registro no insertado ");
+            System.out.println("" + sql);
+
+            try {
+                //La función ejecutarSql sirve para ejecutar
+                //instrucciones INSERT, UPDATE Y DELETE
+                //Retorna un valor entero (int) que representa
+                //el número de filas ejecutadas o afectadas
+                if (conMySql.ejecutarSql(sql) == 1) {
+                    JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    limpiar();
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Registro no insertado ");
+                }
+            } catch (SQLException | HeadlessException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtId.setText("");
+            txtId.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -337,15 +424,14 @@ public class GestionConsultorios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "UPDATE  consultorios SET ";
-        
-     
-      //  sql += "ConId='" + txtId.getText().trim() + "',"; //Esto no se puede hacer
+
+        //  sql += "ConId='" + txtId.getText().trim() + "',"; //Esto no se puede hacer
         sql += "ConNombre='" + txtNombre.getText().trim() + "',";
         sql += "ConDireccion='" + txtDireccion.getText().trim() + "',";
         sql += "ConCiudad='" + txtCiudad.getText().trim() + "',";
         sql += "ConDepartamento='" + txtDepartamento.getText().trim() + "',";
-        sql += "ConTelefono1='" + txtTelefono1.getText().trim() + "',";
-        sql += "ConTelefono2='" + txtTelefono2.getText().trim() + "',";
+        sql += "ConTelefono1='" + Integer.parseInt(txtTelefono1.getText().trim()) + "',";
+        sql += "ConTelefono2='" + Integer.parseInt(txtTelefono2.getText().trim()) + "',";
         sql += "ConCorreo='" + txtEmail.getText().trim() + "' WHERE ConId='" + txtId.getText().trim() + "'"; //Siempre debe ir el Where
 
         System.out.println("" + sql);
@@ -360,6 +446,14 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
                     this.conMySql.desconectar();
+                    limpiar();
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnBuscar.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
                 }
@@ -374,9 +468,15 @@ public class GestionConsultorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        txtId.setEnabled(false);
+        habilitar();
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnCerrar.setEnabled(true);
+        
         String sql = "SELECT * FROM consultorios WHERE ConId=" + txtId.getText();
 
-              System.out.println("" + sql);
+        System.out.println("" + sql);
         try {
 
             ResultSet fila = this.conMySql.cargarResulset(sql);
@@ -395,6 +495,13 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                txtId.setText("");
+                txtId.setEnabled(true);
+                desabilitar();
+                btnEditar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnNuevo.setEnabled(true); 
+                btnBuscar.setEnabled(true);
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -409,6 +516,11 @@ public class GestionConsultorios extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
+            desabilitar();
+            txtId.setText("");
+            txtId.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            btnEditar.setEnabled(false);            
             return;
         }
 
@@ -417,7 +529,6 @@ public class GestionConsultorios extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  consultorios WHERE ConId='" + txtId.getText().trim() + "'";
-
 
         System.out.println("" + sql);
 
@@ -431,16 +542,18 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
-                    txtId.setText("");
-                    txtNombre.setText("");
-                    txtDireccion.setText("");
-                    txtCiudad.setText("");
-                    txtDepartamento.setText("");
-                    txtTelefono1.setText("");
-                    txtTelefono2.setText("");
-                    txtEmail.setText("");
+                    limpiar();
 
                     this.conMySql.desconectar();
+                    
+                    desabilitar();
+                    txtId.setEnabled(true);
+                    btnEliminar.setEnabled(false);
+                    btnEditar.setEnabled(false);
+                    btnBuscar.setEnabled(true);
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnCerrar.setEnabled(true);
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no eliminado ");
@@ -456,8 +569,19 @@ public class GestionConsultorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-             System.exit (0);
+        System.exit(0);
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    limpiar();
+    habilitar();
+    txtId.setEnabled(false);
+    btnBuscar.setEnabled(false);
+    btnEditar.setEnabled(false);
+    btnGuardar.setEnabled(true);
+    btnEliminar.setEnabled(false);
+    btnCerrar.setEnabled(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -500,6 +624,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
