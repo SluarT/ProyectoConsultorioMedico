@@ -367,7 +367,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro insertado ");
-
+                    this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios"); // lo estoy copiando para ver si me carga la tabla despues de ingresar datos
                     limpiar();
                     desabilitar();
                     txtId.setEnabled(true);
@@ -423,6 +423,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
+                    this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios");
                     this.conMySql.desconectar();
                     limpiar();
                     desabilitar();
@@ -468,9 +469,11 @@ public class GestionUsuarios extends javax.swing.JFrame {
                 txtTelefono.setText(fila.getString("UsuTelefono"));
 
                 fila.close();
+                this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios");
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios");
                 txtId.setText("");
                 txtId.setEnabled(true);
                 desabilitar();
@@ -520,6 +523,7 @@ public class GestionUsuarios extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
                     limpiar();
+                    this.conMySql.cargarTabla(tblUsuarios, "select * from usuarios");
                     this.conMySql.desconectar();
                     desabilitar();
                     txtId.setEnabled(true);
@@ -547,14 +551,14 @@ public class GestionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-    limpiar();
-    habilitar();
-    txtId.setEnabled(false);
-    btnBuscar.setEnabled(false);
-    btnEditar.setEnabled(false);
-    btnGuardar.setEnabled(true);
-    btnEliminar.setEnabled(false);
-    btnCerrar.setEnabled(true);
+        limpiar();
+        habilitar();
+        txtId.setEnabled(false);
+        btnBuscar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 

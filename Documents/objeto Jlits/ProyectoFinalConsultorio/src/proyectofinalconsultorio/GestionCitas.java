@@ -1,4 +1,3 @@
-
 package proyectofinalconsultorio;
 
 import java.awt.HeadlessException;
@@ -10,21 +9,21 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionCitas extends javax.swing.JFrame {
-    
+
     ConexionConMySQL conMySql = new ConexionConMySQL();
     PreparedStatement ps;
     ResultSet rs;
     Statement stmt;
-    
+
     public GestionCitas() {
         initComponents();
-         try {
+        try {
             //Instancia de la clase ConexionConMySQL
             ConexionConMySQL conMySQL = new ConexionConMySQL();
             //Invocación del método conexión para conectar con MySQL
-            conMySQL.conectar();    
+            conMySQL.conectar();
             System.out.println("Conexión exitosa");
-            
+
             //Cargar tablas
             this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
         } catch (ClassNotFoundException ex) {
@@ -255,7 +254,7 @@ public class GestionCitas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    // Instrucción SQL
+        // Instrucción SQL
         String sql = "INSERT INTO tblCitas ( CitMedId, CitConId, CitPacId, CitFecha, CitHora ) "
                 + "VALUES('" + txtIdMedico.getText().trim() + "',"
                 + "'" + txtIdConsultorio.getText().trim() + "',"
@@ -273,6 +272,7 @@ public class GestionCitas extends javax.swing.JFrame {
             //el número de filas ejecutadas o afectadas
             if (conMySql.ejecutarSql(sql) == 1) {
                 JOptionPane.showMessageDialog(this, "Registro insertado ");
+                this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
             } else {
                 JOptionPane.showMessageDialog(this, "Registro no insertado ");
             }
@@ -282,13 +282,13 @@ public class GestionCitas extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-   String sql = "SELECT * FROM tblCitas WHERE CitId=" + txtId.getText();
+        String sql = "SELECT * FROM tblCitas WHERE CitId=" + txtId.getText();
 
-             System.out.println("" + sql);
+        System.out.println("" + sql);
         try {
 
             ResultSet fila = this.conMySql.cargarResulset(sql);
@@ -300,12 +300,13 @@ public class GestionCitas extends javax.swing.JFrame {
                 txtIdMedico.setText(fila.getString("CitMedId"));
                 txtHora.setText(fila.getString("CitHora"));
                 txtFecha.setText(fila.getString("CitFecha"));
-             
 
                 fila.close();
+                this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
             }
 
         } catch (SQLException | HeadlessException ex) {
@@ -314,12 +315,12 @@ public class GestionCitas extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionPacientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
-            if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
+        if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
             return;
         }
@@ -334,8 +335,7 @@ public class GestionCitas extends javax.swing.JFrame {
         sql += "CitConId='" + txtIdConsultorio.getText().trim() + "',";
         sql += "CitPacId='" + txtIdPaciente.getText().trim() + "',";
         sql += "CitFecha='" + txtFecha.getText().trim() + "',";
-        sql += "CitHora='" + txtHora.getText().trim() +  "' WHERE CitId='" + txtId.getText().trim() + "'";
- 
+        sql += "CitHora='" + txtHora.getText().trim() + "' WHERE CitId='" + txtId.getText().trim() + "'";
 
         System.out.println("" + sql);
 
@@ -348,6 +348,7 @@ public class GestionCitas extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
+                    this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
                     this.conMySql.desconectar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
@@ -362,7 +363,7 @@ public class GestionCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
             return;
@@ -373,7 +374,7 @@ public class GestionCitas extends javax.swing.JFrame {
         //  System.out.println(input);
 
         String sql = "DELETE FROM  tblCitas WHERE CitId='" + txtId.getText().trim() + "'";
- 
+
         System.out.println("" + sql);
 
         try {
@@ -392,9 +393,8 @@ public class GestionCitas extends javax.swing.JFrame {
                     txtIdPaciente.setText("");
                     txtFecha.setText("");
                     txtHora.setText("");
-                   
 
-          
+                    this.conMySql.cargarTabla(tblCitas, "select * from tblCitas");
                     this.conMySql.desconectar();
 
                 } else {
@@ -410,8 +410,8 @@ public class GestionCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-System.exit (0);
-    
+        System.exit(0);
+
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     /**

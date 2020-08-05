@@ -404,6 +404,7 @@ public class GestionPacientes extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
                     limpiar();
                     desabilitar();
                     txtIdentificacion.setText("");
@@ -468,6 +469,7 @@ public class GestionPacientes extends javax.swing.JFrame {
                     btnEditar.setEnabled(false);
                     btnNuevo.setEnabled(true);
                     btnCerrar.setEnabled(true);
+                    this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
                     this.conMySql.desconectar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
@@ -487,7 +489,7 @@ public class GestionPacientes extends javax.swing.JFrame {
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
         btnCerrar.setEnabled(true);
-        
+
         String sql = "SELECT * FROM pacientes WHERE PacId=" + txtIdentificacion.getText();
 
         /*        "VALUES ('"+txtIdentificacion.getText().trim()+"',"+
@@ -517,9 +519,11 @@ public class GestionPacientes extends javax.swing.JFrame {
                 txtTelefono.setText(fila.getString("PacTelefono"));
 
                 fila.close();
+                this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                 this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
                 txtIdentificacion.setText("");
                 txtIdentificacion.setEnabled(true);
                 desabilitar();
@@ -576,7 +580,7 @@ public class GestionPacientes extends javax.swing.JFrame {
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
-                  /*  txtIdentificacion.setText("");
+                    /*  txtIdentificacion.setText("");
                     txtTipoIdentificacion.setText("");
                     txtNombres.setText("");
                     txtApellidos.setText("");
@@ -585,10 +589,10 @@ public class GestionPacientes extends javax.swing.JFrame {
                     txtDireccion.setText("");
                     txtEmail.setText("");
                     txtTelefono.setText("");*/
-                  limpiar(); // esto reemplaza el codigo de arriba
-
+                    limpiar(); // esto reemplaza el codigo de arriba
+                    this.conMySql.cargarTabla(tblPacientes, "select * from pacientes");
                     this.conMySql.desconectar();
-                    
+
                     desabilitar();
                     txtIdentificacion.setText("");
                     txtIdentificacion.setEnabled(true);
@@ -598,7 +602,6 @@ public class GestionPacientes extends javax.swing.JFrame {
                     btnGuardar.setEnabled(false);
                     btnNuevo.setEnabled(true);
                     btnCerrar.setEnabled(true);
-
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no eliminado ");
@@ -617,7 +620,7 @@ public class GestionPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-       limpiar();
+        limpiar();
         habilitar();
         txtIdentificacion.setEnabled(true);
         btnBuscar.setEnabled(false);

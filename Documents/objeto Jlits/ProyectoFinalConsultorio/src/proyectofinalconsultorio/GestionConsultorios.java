@@ -41,7 +41,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
     }
 
     public void habilitar() {
-        
+
         txtNombre.setEnabled(true);
         txtDireccion.setEnabled(true);
         txtCiudad.setEnabled(true);
@@ -391,6 +391,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    this.conMySql.cargarTabla(tblConsultorios, "select * from consultorios");
                     limpiar();
                     desabilitar();
                     txtId.setEnabled(true);
@@ -407,7 +408,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
-    
+
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (this.conMySql.verificarCajasVacias(jPanel1) == false) {
             JOptionPane.showMessageDialog(this, "Primero de buscar ");
@@ -445,6 +446,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro editado ");
+                    this.conMySql.cargarTabla(tblConsultorios, "select * from consultorios");
                     this.conMySql.desconectar();
                     limpiar();
                     desabilitar();
@@ -473,7 +475,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
         btnCerrar.setEnabled(true);
-        
+
         String sql = "SELECT * FROM consultorios WHERE ConId=" + txtId.getText();
 
         System.out.println("" + sql);
@@ -492,15 +494,17 @@ public class GestionConsultorios extends javax.swing.JFrame {
                 txtEmail.setText(fila.getString("ConCorreo"));
 
                 fila.close();
+                this.conMySql.cargarTabla(tblConsultorios, "select * from consultorios");
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                this.conMySql.cargarTabla(tblConsultorios, "select * from consultorios");
                 txtId.setText("");
                 txtId.setEnabled(true);
                 desabilitar();
                 btnEditar.setEnabled(false);
                 btnEliminar.setEnabled(false);
-                btnNuevo.setEnabled(true); 
+                btnNuevo.setEnabled(true);
                 btnBuscar.setEnabled(true);
             }
 
@@ -520,7 +524,7 @@ public class GestionConsultorios extends javax.swing.JFrame {
             txtId.setText("");
             txtId.setEnabled(true);
             btnEliminar.setEnabled(false);
-            btnEditar.setEnabled(false);            
+            btnEditar.setEnabled(false);
             return;
         }
 
@@ -543,9 +547,9 @@ public class GestionConsultorios extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Registro eliminado ");
 
                     limpiar();
-
+                    this.conMySql.cargarTabla(tblConsultorios, "select * from consultorios");
                     this.conMySql.desconectar();
-                    
+
                     desabilitar();
                     txtId.setEnabled(true);
                     btnEliminar.setEnabled(false);
@@ -573,14 +577,14 @@ public class GestionConsultorios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-    limpiar();
-    habilitar();
-    txtId.setEnabled(false);
-    btnBuscar.setEnabled(false);
-    btnEditar.setEnabled(false);
-    btnGuardar.setEnabled(true);
-    btnEliminar.setEnabled(false);
-    btnCerrar.setEnabled(true);
+        limpiar();
+        habilitar();
+        txtId.setEnabled(false);
+        btnBuscar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnCerrar.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**

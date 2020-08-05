@@ -441,6 +441,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 //el número de filas ejecutadas o afectadas
                 if (conMySql.ejecutarSql(sql) == 1) {
                     JOptionPane.showMessageDialog(this, "Registro insertado ");
+                    this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
                     limpiar();
                     desabilitar();
                     txtIdentificacion.setText("");
@@ -508,6 +509,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
                     btnEditar.setEnabled(false);
                     btnNuevo.setEnabled(true);
                     btnCerrar.setEnabled(true);
+                    this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
                     this.conMySql.desconectar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Registro no editado ");
@@ -548,9 +550,11 @@ public class GestinoMedicos extends javax.swing.JFrame {
                 txtEmail.setText(fila.getString("MedCorreo"));
 
                 fila.close();
+                this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
                 this.conMySql.desconectar();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ese numero de identificación");
+                this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
                 txtIdentificacion.setText("");
                 txtIdentificacion.setEnabled(true);
                 desabilitar();
@@ -611,7 +615,7 @@ public class GestinoMedicos extends javax.swing.JFrame {
                     txtTelefono.setText("");
                     txtEmail.setText(""); */
                     limpiar(); // esto reeempla el codigo de arriba 
-
+                    this.conMySql.cargarTabla(tblMedicos, "select * from medicos");
                     this.conMySql.desconectar();
 
                     desabilitar();
