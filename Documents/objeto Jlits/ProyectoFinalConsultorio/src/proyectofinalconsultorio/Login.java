@@ -1,15 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author sluar
- */
+
+
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import proyectofinalconsultorio.ConexionConMySQL;
+
+
 public class Login extends javax.swing.JFrame {
-
+  ConexionConMySQL conMySql = new ConexionConMySQL();
+    PreparedStatement ps;
+    ResultSet rs;
+    Statement stmt;
     /**
      * Creates new form validaciondeusuario
      */
@@ -153,12 +157,41 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   public void Validarusuario () {
+       
+       int resultado=0;
+       String pass =String.valueOf(txtContraseña.getPassword());
+       String usuario=txtUsuario.getText();
+       String sql= "SELECT * FROM usuarios where UsuNombreUsuario='"+usuario+"' and UsuContraseña='"+pass+"' ";
+       
+       try{
+           
+           if ( rs.next() ) {
+               resultado=1;
+               
+               if (resultado==1){
+                   sistema form=new sistema ();
+                   
+               }
+               
+           }else {
+               JOptionPane.showMessageDialog(null, "Error de Acceso, Usuario o Contraseña NO Registrados");
+           }
+           
+       } catch (Exception e){
+           JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+           
+       }
+       
+   }
+    
+    
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
+      Validarusuario ();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
